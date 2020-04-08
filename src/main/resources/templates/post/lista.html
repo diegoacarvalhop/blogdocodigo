@@ -80,11 +80,16 @@
 			<div class="container" style="width: 100%; padding-bottom: 30px;">
 				<div class="card shadown-sm bg-white rounded"
 					style="margin-top: 20px;" th:each="post: ${pagePost.registros}">
-					<div class="card-body">
+					<div class="card-body" style="height: 250px !important;">
 						<p class="card-subtitle mb-2 text-muted"
 							style="font-size: 0.8rem;">
 							<span th:text="${post.autor}"></span> <span
 								th:text="|(${#temporals.format(post.data, 'dd-MM-yyyy')}) |"></span>
+							<button th:id="${#strings.concat('btn_posts/excluir/', post.id)}"
+								type="button" class="btn btn-danger btn-sm rigth"
+								data-toggle="modal" data-target="#myModal">
+								<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+							</button>
 						</p>
 						<h5 class="card-title"
 							style="font-weight: italy; color: grey; padding-top: 5px;">
@@ -100,11 +105,6 @@
 							<span th:utext="${#strings.abbreviate(post.conteudo, 150)}"></span>
 						</p>
 					</div>
-					<button th:id="${#strings.concat('btn_posts/excluir/', post.id)  }"
-						type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-						data-target="#myModal">
-						<span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
-					</button>
 				</div>
 			</div>
 			<nav aria-label="Page navigation example">
