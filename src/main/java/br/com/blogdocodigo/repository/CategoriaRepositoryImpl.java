@@ -37,7 +37,7 @@ public class CategoriaRepositoryImpl extends AbstractRepository<Categoria, Long>
 	@Override
 	public long findByNome(String nome) {
 		return getEntityManager()
-				.createQuery("select count(*) from Categoria c where c.nome like '%" + nome + "%'", Long.class)
+				.createQuery("select count(*) from Categoria c where c.nome = '" + nome + "'", Long.class)
 				.getSingleResult();
 	}
 
