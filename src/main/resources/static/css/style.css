@@ -121,3 +121,18 @@ body {
     pointer-events: none;
     touch-action: none;
 }
+
+/*
+ * Error
+ */
+#externa {
+width: 400px;
+height: 400px;
+display:table;
+}
+
+#interna {
+text-align: center;
+vertical-align:middle;
+display:table-cell;
+}

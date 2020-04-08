@@ -1,36 +1,37 @@
 <!DOCTYPE html>
-<html lang="pt" 
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<link rel="icon" th:href="@{/image/favicon.png}" />
-
-<title th:text="${status}"></title>
-
-<!-- Bootstrap core CSS -->
-<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
-<link th:href="@{/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css}" rel="stylesheet" />
-<!-- Custom styles for this template -->
-<link th:href="@{/css/style.css}" rel="stylesheet" />
-</head>		
-<body class="text-center">
-	<div>
-		<h1 class="h3 mb-3 font-weight-normal">
-			<i class="oi oi-warning"></i> 
-			<span th:text="${status}"></span>
-		</h1>
-		
-		<h2 th:text="${error}"></h2>
-		
-		<div>
-			<span th:text="${message}"></span><br/><br/>
-			<a class="btn btn-primary" type="button" href="javascript:history.back()">Voltar a página anterior</a>
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<div class="page-header">
+			<nav class="navbar navbar-expand-md navbar-top bg-light">
+				<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+					<ul class="navbar-nav">
+						<li class="nav-item active"><i class="oi oi-caret-right"></i>
+							<span>Erro</span></li>
+					</ul>
+				</div>
+			</nav>
 		</div>
-	</div>
+		<div class="container" id="externa">
+			<div id="interna">
+				<h1 class="h3 mb-3 font-weight-normal">
+					<i class="oi oi-warning"></i> <span th:text="${status}"></span>
+				</h1>
+
+				<h2 th:text="${error}"></h2>
+
+				<div>
+					<span th:text="${message}"></span><br /> <br /> <a
+						class="btn btn-primary" type="button"
+						href="javascript:history.back()"> <span class="oi oi-action-undo"
+						title="Cadastro" aria-hidden="true"></span><span> Voltar
+							para a página anterior</span></a>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
-</html>	
+</html>
