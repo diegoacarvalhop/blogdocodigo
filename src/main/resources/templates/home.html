@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Home</span></li>
+				</ul>
+			</div>
+		</nav>
+		<div class="container">
+			<h4>Posts recentes</h4>
+			<div class="container" style="width: 100%; padding-bottom: 30px;">
+				<div class="card shadown-sm bg-white rounded"
+					style="margin-top: 20px;" th:each="post: ${posts}">
+					<div class="card-body">
+						<p class="card-subtitle mb-2 text-muted"
+							style="font-size: 0.8rem;">
+							<span th:text="${post.autor}"></span> <span
+								th:text="|(${#temporals.format(post.data, 'dd-MM-yyyy')}) |"></span>
+						</p>
+						<h5 class="card-title"
+							style="font-weight: italy; color: grey; padding-top: 5px;">
+							<span th:text="${post.categoria.nome}"></span>
+						</h5>
+						<h4 class="card-title"
+							style="font-weight: bold; color: black; padding-top: 5px;">
+							<span th:text="${post.titulo}"></span>
+						</h4>
+						<p class="card-text">
+							<span th:utext="${#strings.abbreviate(post.conteudo, 400)}"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

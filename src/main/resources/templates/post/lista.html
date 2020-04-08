@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span>Lista de Posts</span></li>
+				</ul>
+				<a class="btn btn-primary btn-md" th:href="@{/posts/cadastrar}"
+					role="button"> <span class="oi oi-plus" title="Cadastro"
+					aria-hidden="true"></span> <span>Cadastrar Posts</span>
+				</a>
+			</div>
+		</nav>
+		<div class="container">
+			<p>
+				<i class="oi oi-magnifying-glass"></i><span></span>
+				<button class="btn btn-primary" type="button" data-toggle="collapse"
+					data-target="#collapseTitulo" aria-controls="collapseTitulo">Título
+				</button>
+				<button class="btn btn-primary" type="button" data-toggle="collapse"
+					data-target="#collapseAutor" aria-controls="collapseAutor">Autor
+				</button>
+				<button class="btn btn-primary" type="button" data-toggle="collapse"
+					data-target="#collapseCategoria" aria-controls="collapseCategoria">Categoria
+				</button>
+			</p>
+			<div class="row">
+				<div class="col">
+					<div class="collapse accordion" id="collapseTitulo">
+						<nav class="navbar navbar-light bg-light">
+							<form class="form-inline" method="GET"
+								th:action="@{/posts/buscar/titulo}">
+								<input class="form-control mr-sm-2" type="search"
+									placeholder="Título" aria-label="Search" th:name="titulo" />
+								<button class="btn btn-outline-success my-2 my-sm-0">Pesquisar</button>
+							</form>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="collapse accordion" id="collapseAutor">
+						<nav class="navbar navbar-light bg-light">
+							<form class="form-inline" method="GET"
+								th:action="@{/posts/buscar/autor}">
+								<input class="form-control mr-sm-2" type="search"
+									placeholder="Autor" aria-label="Search" th:name="autor" />
+								<button class="btn btn-outline-success my-2 my-sm-0">Pesquisar</button>
+							</form>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="collapse" id="collapseCategoria">
+						<nav class="navbar navbar-light bg-light">
+							<form class="form-inline" method="GET"
+								th:action="@{/posts/buscar/categoria}">
+								<select class="form-control mr-sm-2" th:name="id"
+									aria-label="Search">
+									<option value="">Selecione</option>
+									<option th:each="categoria : ${categorias}"
+										th:value="${categoria.id}" th:text="${categoria.nome}"></option>
+								</select>
+								<button class="btn btn-outline-success my-2 my-sm-0">Pesquisar</button>
+							</form>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<div th:replace="fragments/alert"></div>
+			<div class="container" style="width: 100%; padding-bottom: 30px;">
+				<div class="card shadown-sm bg-white rounded"
+					style="margin-top: 20px;" th:each="post: ${pagePost.registros}">
+					<div class="card-body">
+						<p class="card-subtitle mb-2 text-muted"
+							style="font-size: 0.8rem;">
+							<span th:text="${post.autor}"></span> <span
+								th:text="|(${#temporals.format(post.data, 'dd-MM-yyyy')}) |"></span>
+						</p>
+						<h5 class="card-title"
+							style="font-weight: italy; color: grey; padding-top: 5px;">
+							<span th:text="${post.categoria.nome}"></span>
+						</h5>
+						<a th:href="@{/posts/editar/{id} (id=${post.id})}">
+							<h4 class="card-title"
+								style="font-weight: bold; color: black; padding-top: 5px;">
+								<span th:text="${post.titulo}"></span>
+							</h4>
+						</a>
+						<p class="card-text">
+							<span th:utext="${#strings.abbreviate(post.conteudo, 400)}"></span>
+						</p>
+					</div>
+					<button th:id="${#strings.concat('btn_posts/excluir/', post.id)  }"
+						type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+						data-target="#myModal">
+						<span class="oi oi-circle-x" title="Exclusão desabilitada"
+							aria-hidden="true"></span>
+					</button>
+				</div>
+			</div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item" title="Primeira página"><a
+						class="page-link" th:href="@{/posts/listar(page=${1})}"
+						tabindex="-1"><i class="oi oi-media-step-backward"></i></a></li>
+					<li
+						th:class="${pagePost.pagina == 1} ? 'page-item disabled' : 'page-item'"
+						title="Voltar página"><a class="page-link"
+						th:href="@{/posts/listar(page=${pagePost.pagina - 1})}"
+						tabindex="-1"><i class="oi oi-media-skip-backward"></i></a></li>
+					<li class="page-item" th:each="numero : ${pagePost.numerosPaginas}"
+						th:title="|Página ${numero}|"><a class="page-link"
+						th:text="${numero}" th:href="@{/posts/listar(page=${numero})}"></a></li>
+					<li
+						th:class="${pagePost.pagina == pagePost.totalDePaginas} ? 'page-item disabled' : 'page-item'"
+						title="Próxima página"><a class="page-link"
+						th:href="@{/posts/listar(page=${pagePost.pagina + 1})}"><i
+							class="oi oi-media-skip-forward"></i></a></li>
+					<li class="page-item" title="Última página"><a
+						class="page-link"
+						th:href="@{/posts/listar(page=${pagePost.totalDePaginas})}"
+						tabindex="-1"><i class="oi oi-media-step-forward"></i></a></li>
+				</ul>
+			</nav>
+		</div>
+		<div th:replace="fragments/modal :: modal"></div>
+	</section>
+</body>
+</html>
