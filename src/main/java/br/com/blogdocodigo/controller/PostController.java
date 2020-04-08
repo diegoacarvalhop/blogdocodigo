@@ -78,6 +78,8 @@ public class PostController {
 		if (result.hasErrors()) {
 			return "post/cadastro";
 		}
+		LocalDate data = service.buscarPorId(post.getId()).getData();
+		post.setData(data);
 		service.editar(post);
 		attributes.addFlashAttribute("success", "Post atualizado.");
 		return "redirect:/posts/cadastrar";
