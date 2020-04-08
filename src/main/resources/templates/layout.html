@@ -18,7 +18,9 @@
 	th:href="@{/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css}"
 	rel="stylesheet" />
 <link th:href="@{/css/style.css}" rel="stylesheet" />
-<script src="https://cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
+<script
+	src="https://cdn.tiny.cloud/1/bcmws6i3phfwd2k8os1si16gz7kseup63o8s22yv16cv8qyr/tinymce/5/tinymce.min.js"
+	referrerpolicy="origin"></script>
 </head>
 <body>
 	<header th:replace="fragments/header :: cabecalho"></header>
@@ -54,11 +56,17 @@
 			})
 		});
 	</script>
-	<script>
-		CKEDITOR.replace('editor', {
-			height : 300,
-			baseFloatZIndex : 10005
-		});
+	<script type="text/javascript">
+		tinymce
+				.init({
+					selector : 'textarea#editor',
+					plugins : 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+					toolbar : 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+					toolbar_mode : 'floating',
+					tinycomments_mode : 'embedded',
+					tinycomments_author : 'Author name',
+					height : 300
+				});
 	</script>
 </body>
 </html>
