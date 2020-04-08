@@ -97,7 +97,7 @@
 							</h4>
 						</a>
 						<p class="card-text">
-							<span th:utext="${#strings.abbreviate(post.conteudo, 400)}"></span>
+							<span th:utext="${#strings.abbreviate(post.conteudo, 150)}"></span>
 						</p>
 					</div>
 					<button th:id="${#strings.concat('btn_posts/excluir/', post.id)  }"
