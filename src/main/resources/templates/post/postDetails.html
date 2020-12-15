@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<section class="layout-content" layout:fragment="corpo">
+    <nav class="navbar navbar-expand-md bg-light">
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><i class="oi oi-caret-right"></i>
+                    <span>Post</span></li>
+            </ul>
+            <a class="btn btn-primary btn-md" th:href="@{/posts/cadastrar}"
+               role="button"> <span class="oi oi-plus" title="Cadastro"
+                                    aria-hidden="true"></span> <span>Novo Post</span>
+            </a>
+        </div>
+    </nav>
+    <main>
+        <div class="container" style="width: 60%;">
+            <article>
+                <h1 class="card-title" style="font-weight: bold; margin-bottom: 20px;"><span
+                        th:text="${post.titulo}"></span></h1>
+                <p class="card-subtitle mb-2 text-muted">
+                    <span th:text="${post.autor}"></span>
+                    <br>
+                    <span th:text="|(${#temporals.format(post.data, 'dd-MM-yyyy')})|"></span>
+                </p>
+                <section>
+                    <p class="card-text" style="margin-top: 40px;"><span th:utext="${post.conteudo}"></span></p>
+                </section>
+            </article>
+        </div>
+    </main>
+</section>
+</body>
+</html>

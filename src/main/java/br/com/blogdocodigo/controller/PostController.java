@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.blogdocodigo.model.Categoria;
@@ -45,6 +46,14 @@ public class PostController {
 		PaginacaoUtil<Post> pagePost = service.buscarPorPagina(paginaAtual);
 		model.addAttribute("pagePost", pagePost);
 		return "post/lista";
+	}
+
+	@GetMapping("/listar/{id}")
+	public ModelAndView listarPorId(@PathVariable("id") long id) {
+		ModelAndView mv = new ModelAndView("post/postDetails");
+		Post post = service.buscarPorId(id);
+		mv.addObject("post", post);
+		return mv;
 	}
 
 	@PostMapping("/salvar")

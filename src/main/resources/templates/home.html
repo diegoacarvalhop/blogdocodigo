@@ -30,7 +30,9 @@
 						</h5>
 						<h4 class="card-title"
 							style="font-weight: bold; color: black; padding-top: 5px;">
-							<span th:text="${post.titulo}"></span>
+							<a th:href="${(#mvc.url('PC#listarPorId').arg(0, post.id)).build()}">
+								<span th:text="${post.titulo}"></span>
+							</a>
 						</h4>
 						<p class="card-text">
 							<span th:utext="${#strings.abbreviate(post.conteudo, 150)}"></span>
